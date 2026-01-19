@@ -72,17 +72,17 @@ def bronze_ingestion_flow(data_dir: str = "./data/sources") -> dict:
     data_path = Path(data_dir)
 
     clients_file = str(data_path / "clients.csv")
-    achats_file = str(data_path / "achats.csv")
+    purchases_file = str(data_path / "purchases.csv")
 
     clients_name = upload_csv_to_souces(clients_file, "clients.csv")
-    achats_name = upload_csv_to_souces(achats_file, "achats.csv")
+    purchases_name = upload_csv_to_souces(purchases_file, "purchases.csv")
 
     bronze_clients = copy_to_bronze_layer(clients_name)
-    bronze_achats = copy_to_bronze_layer(achats_name)
+    bronze_purchases = copy_to_bronze_layer(purchases_name)
 
     return {
         "clients": bronze_clients,
-        "achats": bronze_achats
+        "purchases": bronze_purchases
     }
 
 if __name__ == "__main__":
