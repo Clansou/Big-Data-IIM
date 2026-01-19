@@ -14,27 +14,28 @@ def generate_clients(n_clients: int, output_path: Path) -> list[int]:
     Generate fake Client data
 
     Args:
-        n_clients (int): Number of clients to generate
+        client_ids (int): Number of clients to generate
+        id_achat, id_client, date_achat, montant_achat, produit
         output_path (Path): Path to save the generated CSV file
 
         Returns:
             list[int]: List of generated client IDs
     """
 
-    countries = ["USA", "Canada", "UK", "Germany", "France", "Australia"]
+    products = ["Laptop", "Phone", "Tablet", "Headphones", "Monitor", "Keyboard", "Mouse", "Webcam", "Speaker", "Charger"]
 
     clients = []
     client_ids = []
 
     for i in range(1, n_clients + 1):
-        data_inscription = fake.date_between(start_date='-3y', end_date='-1m')
+        data_achat = fake.date_between(start_date='-3y', end_date='-1m')
         clients.append(
             {
+                "id_achat": i,
                 "client_id": i,
-                "name": fake.name(),
-                "email": fake.email(),
-                "date_inscription": data_inscription.strftime("%Y-%m-%d"),
-                "country": random.choice(countries),
+                "date_achat": data_achat.strftime("%Y-%m-%d"),
+                "montant_achat": round(random.uniform(10.0, 1000.0), 2),
+                "produit": random.choice(products),
             }
         )
 
@@ -43,7 +44,7 @@ def generate_clients(n_clients: int, output_path: Path) -> list[int]:
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, mode='w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=["client_id", "name", "email", "date_inscription", "country"])
+        writer = csv.DictWriter(f, fieldnames=["id_achat", "client_id", "date_achat", "montant_achat", "produit"])
         writer.writeheader()
         writer.writerows(clients)
 
@@ -53,8 +54,8 @@ def generate_clients(n_clients: int, output_path: Path) -> list[int]:
 if __name__ == "__main__":
     output_dir = Path(__file__).parent.parent / "data" / "sources"
 
-    clients_ids = generate_clients(
+    achats_ids = generate_clients(
         n_clients=1500,
-        output_path=output_dir / "clients.csv"
+        output_path=output_dir / "achats.csv"
     )
 
