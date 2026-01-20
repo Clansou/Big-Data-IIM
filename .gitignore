@@ -1,0 +1,112 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.pytype/
+ruff_cache/
+
+# =========================
+# Virtual environments
+# =========================
+.env
+.env.*
+venv/
+.venv/
+env/
+ENV/
+
+# =========================
+# Jupyter / IPython
+# =========================
+.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+*.out
+
+# =========================
+# Big Data / Spark
+# =========================
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Spark checkpoints
+checkpoint/
+checkpoints/
+
+# Hadoop
+hdfs-site.xml
+core-site.xml
+yarn-site.xml
+mapred-site.xml
+
+# =========================
+# Data files (à adapter selon besoin)
+# =========================
+data/
+datasets/
+*.csv
+*.parquet
+*.orc
+*.avro
+*.json
+*.jsonl
+
+# =========================
+# Prefect
+# =========================
+.prefect/
+prefect.db
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/secrets.toml
+.streamlit/config.toml
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.pid
+
+# =========================
+# MinIO
+# =========================
+.minio.sys/
+minio-data/
+
+# =========================
+# MongoDB
+# =========================
+*.bson
+
+# =========================
+# OS / Editor
+# =========================
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
