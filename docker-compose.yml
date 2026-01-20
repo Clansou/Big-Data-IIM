@@ -76,6 +76,56 @@ services:
       timeout: 10s
       retries: 5
 
+  # ============================================
+  # SPARK CLUSTER (1 master + 2 workers)
+  # ============================================
+  spark-master:
+    image: apache/spark:3.5.0
+    container_name: spark-master
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
+    ports:
+      - "8080:8080"   # Spark Master Web UI
+      - "7077:7077"   # Spark Master port
+    volumes:
+      - ./flows:/spark/flows
+      - ./utils:/spark/utils
+      - ./data:/spark/data
+    networks:
+      - elt-network
+
+  spark-worker-1:
+    image: apache/spark:3.5.0
+    container_name: spark-worker-1
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+    depends_on:
+      - spark-master
+    volumes:
+      - ./flows:/spark/flows
+      - ./utils:/spark/utils
+      - ./data:/spark/data
+    networks:
+      - elt-network
+
+  spark-worker-2:
+    image: apache/spark:3.5.0
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MASTER=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+    depends_on:
+      - spark-master
+    volumes:
+      - ./flows:/spark/flows
+      - ./utils:/spark/utils
+      - ./data:/spark/data
+    networks:
+      - elt-network
+
 volumes:
   minio_data:
   prefect_db:
