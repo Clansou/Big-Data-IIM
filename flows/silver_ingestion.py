@@ -1,11 +1,17 @@
 from io import BytesIO
 from datetime import datetime
 from typing import Dict, Tuple
+from pathlib import Path
 
 import pandas as pd
 from prefect import flow, task
+import sys
 
-from config import BUCKET_BRONZE, BUCKET_SILVER, get_minio_client
+# Ajouter le dossier parent au PYTHONPATH pour pouvoir importer utils
+sys.path.append(str(Path(__file__).parent.parent))
+
+
+from utils.config import BUCKET_BRONZE, BUCKET_SILVER, get_minio_client
 
 
 @task(name="load_from_bronze", retries=2)

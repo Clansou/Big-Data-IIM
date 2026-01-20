@@ -1,9 +1,12 @@
 from io import BytesIO
 from pathlib import Path
+import sys
+
+# Ajouter le dossier parent au PYTHONPATH pour pouvoir importer utils
+sys.path.append(str(Path(__file__).parent.parent))
 
 from prefect import flow, task
-
-from config import BUCKET_BRONZE, BUCKET_SOURCES, get_minio_client
+from utils.config import BUCKET_BRONZE, BUCKET_SOURCES, get_minio_client
 
 @task(name="upload_to_sources", retries=2)
 def upload_csv_to_souces(file_path: str, object_name: str) -> str:
