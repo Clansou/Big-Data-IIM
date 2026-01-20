@@ -271,7 +271,7 @@ with tab3:
 
         # Tableau des données mensuelles
         st.subheader("Données Mensuelles")
-        df_display = df_monthly.copy()
+        df_display = df_monthly[["mois", "chiffre_affaires", "panier_moyen", "nb_achats"]].copy()
         df_display.columns = ["Mois", "CA", "Panier Moyen", "Transactions"]
         st.dataframe(df_display, use_container_width=True)
 
