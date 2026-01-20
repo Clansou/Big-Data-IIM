@@ -6,4 +6,4 @@ faker
 streamlit
 plotly
 python-dotenv
-pyspark
+pyspark==3.5.0
