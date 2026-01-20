@@ -7,3 +7,7 @@ streamlit
 plotly
 python-dotenv
 pyspark==3.5.0
+pymongo
+fastapi
+uvicorn
+requests

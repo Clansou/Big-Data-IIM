@@ -133,6 +133,16 @@ def main():
     if spark_gold > 0:
         print_comparison(pandas_gold, spark_gold, "GOLD")
 
+    # === ÉTAPE 5: MongoDB Ingestion ===
+    print_header("MONGODB INGESTION (Gold -> MongoDB)")
+
+    success, mongodb_time = run_command("python3 flows/mongodb_ingestion.py", "MongoDB")
+    if not success:
+        print("MongoDB ingestion a échoué - vérifiez que MongoDB est démarré")
+        mongodb_time = 0
+    else:
+        print(f"MongoDB terminé en {mongodb_time:.2f}s")
+
     # === RÉSUMÉ FINAL ===
     print_header("RÉSUMÉ FINAL")
 
@@ -150,10 +160,14 @@ def main():
     +----------------+----------+----------+
     """)
 
+    if mongodb_time > 0:
+        print(f"    MongoDB Ingestion : {mongodb_time:.2f}s")
+        print(f"    Pipeline complet  : {total_pandas + mongodb_time:.2f}s (avec Pandas)")
+        print()
+
     if total_spark > 0:
         if total_pandas < total_spark:
             print(f"  Pandas est plus rapide de {total_spark - total_pandas:.2f}s")
-            print("  (Normal avec peu de données - overhead Spark)")
         else:
             print(f"  Spark est plus rapide de {total_pandas - total_spark:.2f}s")
 
